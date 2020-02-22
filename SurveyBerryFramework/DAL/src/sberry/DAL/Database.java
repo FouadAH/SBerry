@@ -1,0 +1,201 @@
+package sberry.DAL;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+import sberry.SDK.Question;
+import sberry.SDK.Survey;
+import sberry.SDK.User;
+
+/**
+ * This class is the data access layer of the application, it is concerned
+ * dealing with accessing data from the database
+ * 
+ * @author Fouad Abou Harfouche
+ * 
+ */
+public class Database {
+	// Online database credentials
+	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	static final String DB_URL = "jdbc:mysql://masterdb.calildp1rap7.us-west-2.rds.amazonaws.com:3306/sberry_db";
+	static final String USER = "sberry";
+	static final String PASS = "Master810";
+	static Connection conn = null;
+	static Statement stmt = null;
+
+	// Offline database credentials
+	// static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	// static final String DB_URL = "jdbc:mysql://localhost/sberry_db";
+	// static final String USER = "root";
+	// static final String PASS = "";
+	// static Connection conn = null;
+	// static Statement stmt = null;
+
+	/**This method is used to establish a connection with the database
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public static void connection() throws ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.jdbc.Driver");
+		conn = DriverManager.getConnection(DB_URL, USER, PASS);
+	}
+
+	/**This method selects and returns user name, email and  hash code from the user table of the database 
+	 * @return ResultSet rs
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public static ResultSet verifyQuery() throws ClassNotFoundException,
+			SQLException {
+		String sql = "SELECT username, email, hashcode FROM user";
+		ResultSet rs = queryExe(sql);
+		return rs;
+
+	}
+
+	/**This method selects and returns the user name associated with the user's email from the user table of the database
+	 * @param user a user object
+	 * @return String username
+	 * @throws SQLException
+	 */
+	public static String getUsernameQuery(User user) throws SQLException {
+		String username = "";
+		String sql = "SELECT username FROM user" + " WHERE email = '"
+				+ user.getEmail() + "'";
+		ResultSet rs = queryExe(sql);
+		while (rs.next()) {
+			username = rs.getString("username");
+		}
+		return username;
+	}
+
+	/**This method executes a given query
+	 * @param q The query to execute
+	 * @return ResultSet 
+	 * @throws SQLException
+	 */
+	public static ResultSet queryExe(String q) throws SQLException {
+		stmt = conn.createStatement();
+		return stmt.executeQuery(q);
+	}
+
+	/**This method executes an update 
+	 * @param q The query to execute
+	 * @throws SQLException
+	 */
+	public static void queryUpd(String q) throws SQLException {
+		stmt = conn.createStatement();
+		stmt.executeUpdate(q);
+	}
+
+	/**This method selects and returns the id associated with the user's email from the user table of the database
+	 * @param user a user object
+	 * @return int id
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public static int selectIDQuery(User user) throws ClassNotFoundException,
+			SQLException {
+		String selectmail = "SELECT userid FROM user" + " WHERE email = '"
+				+ user.getEmail() + "'";
+		ResultSet r1 = queryExe(selectmail);
+		int id = 0;
+		while (r1.next()) {
+			id = r1.getInt("userid");
+
+		}
+		r1.close();
+		return id;
+	}
+
+	/**This method inserts the survey values to the survey table of the database
+	 * @param user a user object
+	 * @param id user's id
+	 * @throws SQLException
+	 */
+	public static void insertSurveyQuery(User user, int id) throws SQLException {
+		String permission = user.getSurvey().getMails();
+		int permInt = 1;
+		Survey survey = user.getSurvey();
+		System.out.println("Attemting to insert survey into database...");
+		String timeStamp = new SimpleDateFormat("yyy.MM.dd HH:mm:ss")
+				.format(new Date());
+		if (!permission.equals("")) {
+			permInt = 2;
+		}
+		String insertsurvey = "INSERT INTO survey " + "VALUES(0, " + id + ", "
+				+ permInt + ", '" + survey.getSurveytitle() + "', '"
+				+ timeStamp + "' , '" + survey.getSurveyLink() + "' , 0)";
+		queryUpd(insertsurvey);
+	}
+
+	/**This method selects and returns the survey id associated with the survey's title from the survey table of the database
+	 * @param user a user object
+	 * @return int surveyid
+	 * @throws SQLException
+	 */
+	public static int selectSurveyIdQuery(User user) throws SQLException {
+
+		Survey survey = user.getSurvey();
+		String selectsurveyid = "SELECT surveyid FROM survey"
+				+ " WHERE title = '" + survey.getSurveytitle() + "'";
+		ResultSet r2 = queryExe(selectsurveyid);
+		int surveyid = 0;
+		while (r2.next()) {
+			surveyid = r2.getInt("surveyid");
+		}
+		r2.close();
+		return surveyid;
+	}
+
+	/**This method inserts the question values to the question table of the database
+	 * @param user a user object
+	 * @param surveyid The id of the survey
+	 * @throws SQLException
+	 */
+	public static void insertQuestionQuery(User user, int surveyid)
+			throws SQLException {
+		Survey survey = user.getSurvey();
+		ArrayList<Question> questions = survey.getQuestion();
+		System.out.println("Inserting questions into database...");
+		for (int i = 0; i < questions.size(); i++) {
+			int option = 0;
+			Question q = questions.get(i);
+			if (q.getOptional() == true) {
+
+				option = 1;
+			} else {
+				option = 0;
+			}
+			String insertquestion = "INSERT INTO question " + "VALUES(0, "
+					+ surveyid + ", '" + q.getQtype() + "', '"
+					+ q.getQuestion() + "', '" + q.getField() + "', " + option
+					+ ")";
+			queryUpd(insertquestion);
+		}
+	}
+
+	/**This method inserts the survey permission values to the survey permission table of the database
+	 * @param premissionid The permission id to be inserted 
+	 * @param user a user object
+	 * @param email The email to be inserted
+	 * @throws SQLException
+	 */
+	public static void insertSurveyPermission(int premissionid, User user,
+			String email) throws SQLException {
+		String serveypermission = "INSERT INTO survey_permissions (PERMISSIONID, SURVEYID, Email)"
+				+ "VALUES("
+				+ premissionid
+				+ ", "
+				+ selectSurveyIdQuery(user)
+				+ ", '" + email + "')";
+		queryUpd(serveypermission);
+	}
+
+}

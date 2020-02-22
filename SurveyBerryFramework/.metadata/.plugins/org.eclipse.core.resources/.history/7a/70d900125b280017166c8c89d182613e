@@ -1,0 +1,86 @@
+package sberry.SDK;
+import java.util.ArrayList;
+
+/**Survey object class
+ * @author Fouad Abou Harfouche
+ *
+ */
+public class Survey {
+	
+	ArrayList<Question> question;
+	String surveytitle;
+	String surveyLink;
+	String mails;
+	String type;
+	
+	/**Survey object constructor
+	 * @param question ArrayList of questions, all questions from the survey
+	 * @param surveytitle Title of the survey
+	 * @param surveyLink Link to the survey
+	 * @param mails Emails specified in the survey
+	 * @param type Type of the survey 
+	 */
+	public Survey(ArrayList<Question> question, String surveytitle, String surveyLink, String mails,String type) {
+		this.question = question;
+		this.surveytitle = surveytitle;
+		this.surveyLink = surveyLink;
+		this.mails=mails;
+		this.type=type;
+	}
+	
+	/**Getter for the arrayList of questions
+	 * @return ArrayList of questions
+	 */
+	public ArrayList<Question> getQuestion() {
+		return question;
+	}
+	/**Setter for the arrayList of questions
+	 * @param question ArrayList of questions
+	 */
+	public void setQuestion(ArrayList<Question> question) {
+		this.question = question;
+	}
+	
+	/**Getter for the survey title
+	 * @return String surveytitle
+	 */
+	public String getSurveytitle() {
+		return surveytitle;
+	}
+	/**Setter for the survey title 
+	 * @param surveytitle Title of the survey
+	 */
+	public void setSurveytitle(String surveytitle) {
+		this.surveytitle = surveytitle;
+	}
+
+	/**Getter for the survey link
+	 * @return String surveylink
+	 */
+	public String getSurveyLink() {
+		return surveyLink;
+	}
+
+	/**Setter for the survey link
+	 * @param surveyLink Link for the survey
+	 */
+	public void setSurveyLink(String surveyLink) {
+		this.surveyLink = surveyLink;
+	}
+	/**
+	 * @return
+	 */
+	public String getMails() {
+		return mails;
+	}
+	/**
+	 * @return
+	 */
+	public String getType() {
+		return type;
+	}
+	
+	
+	
+	
+}

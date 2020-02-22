@@ -1,0 +1,51 @@
+package sberry.QuestionTypes;
+
+import sberry.SDK.Question;
+
+/**
+ * @author USER
+ *
+ */
+public class Emails implements Question {
+	String field;
+
+	
+	public String getField() {
+		return field;
+	}
+
+	public void setField(String[] mails, int i) {
+		int index1 = mails[i].indexOf(':');
+		
+		field = mails[i].substring(index1 + 1);
+		if (field.length() == 0)
+			throw new IllegalArgumentException(
+					"There are no mails!");
+	}
+
+	public int getQtype() {
+		// TODO Auto-generated method stub
+		return 5;
+	}
+
+	public String getQuestion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setQuestion(String[] questions, int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Boolean getOptional() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setOptional(Boolean optional) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

@@ -1,0 +1,39 @@
+package sberry.Client;
+import java.io.FileNotFoundException;
+import java.sql.SQLException;
+
+import sberry.BLL.BLL;
+import sberry.BLL.EmailSender;
+import sberry.DAL.Database;
+import sberry.SDK.User;
+public class berry {
+	   
+	/**
+	 * @param args
+	 * @throws FileNotFoundException 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	public static void main(String[] args) throws FileNotFoundException, ClassNotFoundException, SQLException {
+		String email = args[0];
+		String pass = args[1];
+		String filename = args[2];
+		boolean a=BLL.verify(email,pass);
+		if(!a){
+			a=BLL.verifyfail( email,  pass,  a);
+		}
+		if(a){
+			UserCreator newuser=new UserCreator();
+			User user = newuser.checkFile(filename, email, pass);
+			BLL.addtodb(user);
+			EmailSender.sendVerification(user);
+			EmailSender.filesendVerification(user);
+		}
+		
+		
+		
+	}
+	
+	
+
+}

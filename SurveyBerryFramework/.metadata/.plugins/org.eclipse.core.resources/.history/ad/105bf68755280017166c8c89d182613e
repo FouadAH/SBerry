@@ -1,0 +1,44 @@
+package sberry.QuestionTypes;
+import sberry.SDK.Question;
+
+
+public class Type implements Question{
+
+
+	String question;
+
+	public int getQtype() {
+		return 7;
+	}
+
+	public String getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(String[] questions, int i) {
+		question = questions[i].substring(questions[i].indexOf(':')+1);
+	}
+
+	public String getField() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setField(String[] questions, int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Boolean getOptional() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setOptional(Boolean optional) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+
+}

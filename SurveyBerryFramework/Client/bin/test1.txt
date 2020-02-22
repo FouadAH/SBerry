@@ -1,0 +1,9 @@
+Rate SurveySBerry Service
+\likert*:The pace of this course is just right.
+\text*: What is the one feature about the class that you like the least?
+\mc*:What is the best time to attend the ceremony:
+today;
+tommorw;
+after tommorw;
+now;
+

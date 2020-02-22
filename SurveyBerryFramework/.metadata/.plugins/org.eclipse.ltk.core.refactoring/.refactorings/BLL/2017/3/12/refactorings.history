@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move 3 elements to &apos;Utils&apos;&#x0D;&#x0A;- Original project: &apos;BLL&apos;&#x0D;&#x0A;- Destination element: &apos;Utils&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     javax.mail.jar&#x0D;&#x0A;     mysql-connector-java-5.0.8-bin.jar&#x0D;&#x0A;     activation.jar&#x0D;&#x0A;- Update references to refactored element" description="Move files" destination="=Utils" element1="javax.mail.jar" element2="mysql-connector-java-5.0.8-bin.jar" element3="activation.jar" files="3" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1489946611553" units="0" version="1.0"/>
+</session>

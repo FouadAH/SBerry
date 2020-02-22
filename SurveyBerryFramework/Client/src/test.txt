@@ -1,0 +1,10 @@
+Rate Your Experience so far in CMPS253
+\likert*::The pace of this course is just right.
+\text: What is the one feature about the class that you like the most?
+\text: What is the one feature about the class that you like the least?
+\mc: What is your favorite color:
+red
+blue
+green
+yellow
+\TF: Is the duration of the session OK?

@@ -1,0 +1,9 @@
+org.mindrot.jbcrypt
+sberry.BLL
+sberry.Client
+sberry.DAL
+sberry.Decrypt
+sberry.QuestionFactory
+sberry.QuestionTypes
+sberry.SDK
+sberry.UserFactory

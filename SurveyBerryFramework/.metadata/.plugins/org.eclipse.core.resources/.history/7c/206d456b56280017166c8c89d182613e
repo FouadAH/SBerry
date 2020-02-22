@@ -1,0 +1,48 @@
+package sberry.SDK;
+/**The Question interface class
+ * @author Fouad Abou Harfouche
+ *
+ */
+public interface Question {
+
+	/**Getter for int qtype
+	 * @return int qtype
+	 */
+	public int getQtype();
+	
+	/**Getter for the question string
+	 * @return String question
+	 */
+	public String getQuestion();
+	
+	/**
+	 * @param questions
+	 * @param i
+	 */
+	public void setQuestion(String[] questions, int i);
+	
+	/**
+	 * @return
+	 */
+	public String getField();
+	
+	/**
+	 * @param questions
+	 * @param i
+	 */
+	public void setField(String[] questions, int i);
+	
+	/**
+	 * @return
+	 */
+	public Boolean getOptional();
+	
+	/**
+	 * @param optional
+	 */
+	public void setOptional(Boolean optional);
+	
+	
+}
+
+

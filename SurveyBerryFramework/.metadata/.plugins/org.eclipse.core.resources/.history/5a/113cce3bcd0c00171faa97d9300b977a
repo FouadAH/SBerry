@@ -1,0 +1,122 @@
+package sberry.BLL;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Scanner;
+
+public class BLL {
+
+	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	static final String DB_URL = "jdbc:mysql://localhost/sberry_db?autoReconnect=true&useSSL=false";
+	static final String USER = "root";
+	static final String PASS = "";
+	static Connection conn = null;
+	static Statement stmt = null;
+
+
+	public static boolean verifyfail(String email, String pass, boolean a)
+			throws ClassNotFoundException, SQLException {
+		// DONT CLOSE THE SCANNER.
+		Scanner scan = new Scanner(System.in);
+		while (a != true) {
+			System.out.println("Invalid username or password.");
+			System.out.print("Try again, yes or no :");
+			String yn = scan.next();
+			if (yn.toLowerCase().equals("yes")) {
+				System.out.print("Input email:");
+				email = scan.next();
+				System.out.println();
+				System.out.print("Input password:");
+				pass = scan.next();
+				System.out.println();
+				a = Database.verify(email, pass);
+			} else if (yn.toLowerCase().equals("no")) {
+				break;
+			} else {
+				System.out.println("Invalid input, try again.");
+			}
+		}
+		return a;
+	}
+
+
+	public static boolean verify(String mail, String pass)
+			throws ClassNotFoundException, SQLException {
+		boolean verify = false;
+		connection();
+		ResultSet rs = verifyQuery();
+		while (rs.next()) {
+			String username = rs.getString("username");
+			String password = rs.getString("hashcode");
+			String email = rs.getString("email");
+			if (email.compareTo(mail) == 0 && pass.compareTo(password) == 0) {
+				System.out.println("Welcome to Sberry " + username);
+				verify = true;
+				break;
+			}
+		}
+		rs.close();
+		stmt.close();
+		conn.close();
+		return verify;
+	}
+
+
+	public static void linkgenerator(User user) {
+		String lnk = user.getSurvey().getSurveyLink();
+		System.out.println("Generated Successfully \n");
+		String myString = "www.sberrysurvey.xyz/survey.php?link=" + lnk;
+		StringSelection stringSelection = new StringSelection(myString);
+		Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+		clpbrd.setContents(stringSelection, null);
+		System.out
+				.println("Survey Link : www.sberrysurvey.xyz/survey.php?link="
+						+ lnk);
+		System.out.println("\nLink Copied to Clipboard");
+	}
+
+	public static void addtodb(User user) {
+		try {
+			connection();
+			int id = selectIDQuery(user);
+			insertSurveyQuery(user, id);
+			int surveyid = selectSurveyIdQuery(user);
+			insertQuestionQuery(user, surveyid);
+			insertSurveyPermission(3,user,user.getEmail());
+			linkgenerator(user);
+		} catch (SQLException se) {
+			se.printStackTrace();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+
+			try {
+
+				if (stmt != null)
+					stmt.close();
+			} catch (SQLException se2) {
+
+			}
+			try {
+
+				if (conn != null)
+					conn.close();
+
+			} catch (SQLException se) {
+
+				se.printStackTrace();
+			}
+		}
+	}
+
+}

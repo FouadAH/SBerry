@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.text.DateFormat"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="Database"/>
+<fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="sberry.QuestionTypes.MC"/>
+<fullyQualifiedTypeName name="sberry.QuestionTypes.TF"/>
+<fullyQualifiedTypeName name="sberry.QuestionTypes.Likert"/>
+<fullyQualifiedTypeName name="sberry.QuestionTypes.Text"/>
+<fullyQualifiedTypeName name="sberry.SDK.Question"/>
+<fullyQualifiedTypeName name="sberry.SDK.User"/>
+<fullyQualifiedTypeName name="sberry.DAL.Database"/>
+<fullyQualifiedTypeName name="sberry.SDK.Survey"/>
+<fullyQualifiedTypeName name="sberry.BLL.BLL"/>
+<fullyQualifiedTypeName name="sberry.QuestionFactory.QuestionFactory"/>
+<fullyQualifiedTypeName name="sberry.UserFactory.UserCreator"/>
+<fullyQualifiedTypeName name="java.security.MessageDigest"/>
+<fullyQualifiedTypeName name="java.math.BigInteger"/>
+<fullyQualifiedTypeName name="org.mindrot.jbcrypt.BCrypt"/>
+<fullyQualifiedTypeName name="java.awt.Color"/>
+<fullyQualifiedTypeName name="sberry.QuestionTypes.Emails"/>
+</qualifiedTypeNameHistroy>

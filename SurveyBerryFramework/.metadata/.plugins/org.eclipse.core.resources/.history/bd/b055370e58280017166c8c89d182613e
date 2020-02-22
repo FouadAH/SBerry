@@ -1,0 +1,51 @@
+package sberry.SDK;
+import java.util.ArrayList;
+
+public class Survey {
+	
+	ArrayList<Question> question;
+	String surveytitle;
+	String surveyLink;
+	String mails;
+	String type;
+	
+	public Survey(ArrayList<Question> question, String surveytitle, String surveyLink, String mails,String type) {
+		this.question = question;
+		this.surveytitle = surveytitle;
+		this.surveyLink = surveyLink;
+		this.mails=mails;
+		this.type=type;
+	}
+	
+	public ArrayList<Question> getQuestion() {
+		return question;
+	}
+	public void setQuestion(ArrayList<Question> question) {
+		this.question = question;
+	}
+	
+	public String getSurveytitle() {
+		return surveytitle;
+	}
+	public void setSurveytitle(String surveytitle) {
+		this.surveytitle = surveytitle;
+	}
+
+	public String getSurveyLink() {
+		return surveyLink;
+	}
+
+	public void setSurveyLink(String surveyLink) {
+		this.surveyLink = surveyLink;
+	}
+	public String getMails() {
+		return mails;
+	}
+	public String getType() {
+		return type;
+	}
+	
+	
+	
+	
+}

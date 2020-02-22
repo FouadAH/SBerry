@@ -1,0 +1,49 @@
+import org.mindrot.jbcrypt.BCrypt;
+
+
+
+
+public class Decrypt {
+  	
+	private static int workload = 10;
+
+	public static String hashPassword(String password_plaintext) {
+		String salt = BCrypt.gensalt();
+		String hashed_password = BCrypt.hashpw(password_plaintext, salt);
+
+		return(hashed_password);
+	}
+
+	public static boolean checkPassword(String password_plaintext, String stored_hash) {
+		boolean password_verified = false;
+
+		if(null == stored_hash || !stored_hash.startsWith("$2a$"))
+			throw new java.lang.IllegalArgumentException("Invalid hash provided for comparison");
+
+		password_verified = BCrypt.checkpw(password_plaintext, stored_hash);
+
+		return(password_verified);
+	}
+
+	public static void decrypt(String pass, String hash) {
+		
+
+		
+
+		String computed_hash = hashPassword(pass);
+		
+
+		String compare_test = checkPassword(pass, hash)
+			? "Passwords Match" : "Passwords do not match";
+		String compare_computed = checkPassword(pass, computed_hash)
+			? "Passwords Match" : "Passwords do not match";
+
+		System.out.println("Verify against stored hash:   " + compare_test);
+		System.out.println("Verify against computed hash: " + compare_computed);
+
+	}
+	public static void main(String args[]){
+		decrypt("123","$2y$10$JBK3oYtqzF7qVALjHB1G/ebE1h/ZkQnGVPfU69DcIlOUFaXYgJc/S");
+	}
+
+}
